@@ -12,11 +12,20 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    lazy var navigationCoordinator = NavigationCoordinator(UINavigationController(rootViewController: ContactsViewController()))
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController: ContactsViewController())
+        
+        let navigationController = UINavigationController(rootViewController: ContactsViewController())
+        
+        window?.rootViewController = navigationController
+        
+        // Set NavigationCoordinator as delegate for ContactsViewController
+        navigationCoordinator.navigationController = navigationController
+        let viewController = navigationController.topViewController as! ContactsViewController
+        viewController.delegate = navigationCoordinator
         
         return true
     }

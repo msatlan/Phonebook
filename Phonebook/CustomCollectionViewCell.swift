@@ -21,6 +21,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         configureUI()
+        setContraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,29 +32,9 @@ class CustomCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let verticalMargin: CGFloat = frame.height / 10
         
-        let imageViewWidth: CGFloat = frame.width / 2
-        let imageViewHeight: CGFloat = frame.width / 2
-        
-        imageView.frame = CGRect(x: (frame.width - imageViewWidth) / 2,
-                                 y: verticalMargin,
-                                 width: imageViewWidth,
-                                 height: imageViewHeight)
-        imageView.layer.cornerRadius = imageView.frame.width / 2
-        imageView.layer.masksToBounds = true
-        
-        firstNameLabel.frame = CGRect(x: 0,
-                                      y: imageViewHeight + 2 * verticalMargin,
-                                      width: frame.width,
-                                      height: (frame.height - (imageViewHeight + 2 * verticalMargin)) / 2)
-        
-        lastNameLabel.frame = CGRect(x: 0,
-                                     y: firstNameLabel.frame.origin.y + firstNameLabel.frame.height,
-                                     width: frame.width,
-                                     height: (frame.height - (imageViewHeight + 2 * verticalMargin)) / 2)
     }
-
+    
     func configure(for contact: Contact) {
         firstNameLabel.text = contact.firstName
         lastNameLabel.text = contact.lastName
@@ -65,6 +46,8 @@ class CustomCollectionViewCell: UICollectionViewCell {
         layer.masksToBounds = true
         
         imageView.backgroundColor = UIColor.white
+        imageView.layer.cornerRadius = imageView.frame.width / 2
+        imageView.layer.masksToBounds = true
         contentView.addSubview(imageView)
         
         firstNameLabel.backgroundColor = UIColor.white
@@ -76,5 +59,31 @@ class CustomCollectionViewCell: UICollectionViewCell {
         lastNameLabel.font = UIFont(name: "Avenir-Book", size: 12)
         lastNameLabel.textAlignment = .center
         contentView.addSubview(lastNameLabel)
+    }
+    
+    func setContraints() {
+        let labelHeight = frame.height / 5
+        let imageViewSide: CGFloat = frame.height / 2
+        
+        lastNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([lastNameLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+                                     lastNameLabel.leftAnchor.constraint(equalTo: leftAnchor),
+                                     lastNameLabel.rightAnchor.constraint(equalTo: rightAnchor),
+                                     lastNameLabel.heightAnchor.constraint(equalToConstant: labelHeight)])
+        
+        firstNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([firstNameLabel.bottomAnchor.constraint(equalTo: lastNameLabel.topAnchor),
+                                     firstNameLabel.leftAnchor.constraint(equalTo: leftAnchor),
+                                     firstNameLabel.rightAnchor.constraint(equalTo: rightAnchor),
+                                     firstNameLabel.heightAnchor.constraint(equalToConstant: labelHeight)])
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([imageView.widthAnchor.constraint(equalToConstant: imageViewSide),
+                                     imageView.heightAnchor.constraint(equalToConstant: imageViewSide),
+                                     imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                                     imageView.bottomAnchor.constraint(equalTo: firstNameLabel.topAnchor, constant: -5.0)])
+        
+        imageView.layer.cornerRadius = imageViewSide / 2
+        imageView.layer.masksToBounds = true
     }
 }
