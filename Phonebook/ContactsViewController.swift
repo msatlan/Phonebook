@@ -8,18 +8,12 @@
 
 import UIKit
 
-protocol ContactsViewControllerDelegate: class {
-    func shouldPushNextViewController(_ viewController: ContactsViewController, contact: Contact, nextIndex: Int)
-}
-
 class ContactsViewController: UIViewController {
 // MARK: - Properties
-    let viewControllerIndex = 0
     let searchBar = UISearchBar()
     let collectionView = CollectionView()
     var contactsArray: [Contact] = []
-    
-    weak var delegate: ContactsViewControllerDelegate?
+    var onDidSelectContact: ((Contact) -> ())?
     
 // MARK: - Constants
     let cellIdentifier = "Cell"
@@ -108,7 +102,7 @@ extension ContactsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.shouldPushNextViewController(self, contact: contactsArray[indexPath.row], nextIndex: ContactDetailsViewController.viewControllerIndex)
+       onDidSelectContact?(contactsArray[indexPath.row])
     }
 }
 

@@ -12,8 +12,6 @@ class ContactDetailsViewController: UIViewController {
 
 // MARK: - Properties
     var contact: Contact?
-    static let viewControllerIndex = 1
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -9,37 +9,43 @@
 import Foundation
 import UIKit
 
-class NavigationCoordinator: ContactsViewControllerDelegate {
+
+class NavigationCoordinator {
+    
 // MARK: - Properties
     var navigationController: UINavigationController
     
 // MARK: - Init
-    init(_ navigationController: UINavigationController) {
+    init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        showContactsViewController()
     }
-
-// MARK: - View Controllers Enum
-    enum ViewController: Int {
-        case contactsViewController         = 0
-        case contactDetailsViewController   = 1
-        
-        var nextVC: UIViewController {
-            switch self {
-            case .contactsViewController:       return ContactsViewController()
-            case .contactDetailsViewController: return ContactDetailsViewController()
-            }
+    
+    private func showDetailsViewController(contact: Contact) {
+        let detailsViewController = ContactDetailsViewController()
+        detailsViewController.contact = contact
+        showViewController(detailsViewController)
+    }
+    
+    private func showContactsViewController() {
+        let contactsViewController = ContactsViewController()
+        showViewController(contactsViewController)
+        contactsViewController.onDidSelectContact = { contact in
+            self.showDetailsViewController(contact: contact)
         }
     }
     
-    func activate(_ nextIndex: Int) {
-        guard let nextVC = ViewController(rawValue: nextIndex)?.nextVC else { return }
-        navigationController.pushViewController(nextVC, animated: true)
-    }
-    
-    func shouldPushNextViewController(_ viewController: ContactsViewController, contact: Contact, nextIndex: Int) {
-        activate(nextIndex)
-     
+    private func showViewController(_ viewController: UIViewController) {
+        navigationController.pushViewController(viewController, animated: true)
+        /*
+        if navigationController.viewControllers.count == 0 {
+            navigationController.setViewControllers([viewController], animated: true)
+        } else {
+            navigationController.pushViewController(viewController, animated: true)
+        }*/
     }
 }
+
+
 
 
