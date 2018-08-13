@@ -6,12 +6,10 @@
 //  Copyright © 2018 MArko Satlan. All rights reserved.
 //
 
-import Foundation
+
 import UIKit
 
-
 class NavigationCoordinator {
-    
 // MARK: - Properties
     var navigationController: UINavigationController
     
@@ -21,10 +19,9 @@ class NavigationCoordinator {
         showContactsViewController()
     }
     
-    private func showDetailsViewController(contact: Contact) {
-        let detailsViewController = ContactDetailsViewController()
-        detailsViewController.contact = contact
-        showViewController(detailsViewController)
+// MARK: - Navigation
+    private func showViewController(_ viewController: UIViewController) {
+        navigationController.pushViewController(viewController, animated: true)
     }
     
     private func showContactsViewController() {
@@ -35,16 +32,13 @@ class NavigationCoordinator {
         }
     }
     
-    private func showViewController(_ viewController: UIViewController) {
-        navigationController.pushViewController(viewController, animated: true)
-        /*
-        if navigationController.viewControllers.count == 0 {
-            navigationController.setViewControllers([viewController], animated: true)
-        } else {
-            navigationController.pushViewController(viewController, animated: true)
-        }*/
+    private func showDetailsViewController(contact: Contact) {
+            let detailsViewController = ContactDetailsViewController()
+            detailsViewController.contact = contact
+            self.showViewController(detailsViewController)
+        }
     }
-}
+
 
 
 

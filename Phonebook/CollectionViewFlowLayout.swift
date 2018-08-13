@@ -24,4 +24,6 @@ class CollectionViewFlowLayout: UICollectionViewFlowLayout {
         sectionInset = UIEdgeInsetsMake(20, 35, 20, 35)
         minimumLineSpacing = 30
     }
+    
+   
 }

@@ -12,48 +12,33 @@ class ContactsViewController: UIViewController {
 // MARK: - Properties
     let searchBar = UISearchBar()
     let collectionView = CollectionView()
-    var contactsArray: [Contact] = []
     var onDidSelectContact: ((Contact) -> ())?
+    
+    private var contactsViewModel: ContactsViewModel!
     
 // MARK: - Constants
     let cellIdentifier = "Cell"
+    let headerViewIdentifier = "Header View"
     
 // MARK : - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
      
-        let c1 = Contact()
-        c1.firstName = "mirko"
-        c1.lastName = "prijatelj od slavka"
-        
-        let c2 = Contact()
-        c2.firstName = "slavko"
-        c2.lastName = "prijatelj od mirka"
-        
-        let c3 = Contact()
-        c3.firstName = "betmen"
-        c3.lastName = "sismis"
-        
-        let c4 = Contact()
-        c4.firstName = "jovo"
-        c4.lastName = "binsr"
-        
-        contactsArray.append(c1)
-        contactsArray.append(c2)
-        contactsArray.append(c3)
-        contactsArray.append(c4)
-        
         navigationItem.title = "Contacts"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+     
+        contactsViewModel = ContactsViewModel()
         
         configureUI()
         setConstraints()
     }
     
+// MARK: - Configure UI / set constraints
     func configureUI() {
-        collectionView.backgroundColor = UIColor.gray
+        collectionView.backgroundColor = UIColor.lightGray
     
         collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        collectionView.register(CollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerViewIdentifier)
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -78,21 +63,46 @@ class ContactsViewController: UIViewController {
                                      collectionView.bottomAnchor.constraint(equalTo: guide.bottomAnchor)])
     }
     
+// MARK: - Action methods
     @objc func addTapped() {
         print("add")
     }
 }
 
 extension ContactsViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return contactsViewModel.sectionsArray.count
+    }
+ 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return contactsArray.count
+        return contactsViewModel.sectionsArray[section].contactsArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! CustomCollectionViewCell
-        let contact = contactsArray[indexPath.row]
-        cell.configure(for: contact)
+        
+        let contact = contactsViewModel.contact(at: indexPath)
+        
+        cell.topLabel.text = contact.firstName
+        cell.bottomLabel.text = contact.lastName
+        
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionElementKindSectionHeader:
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerViewIdentifier, for: indexPath) as! CollectionReusableView
+            
+            let sectionName = contactsViewModel.sectionNames[indexPath.section].uppercased()
+            
+            headerView.label.text = sectionName
+            
+            return headerView
+        default:
+            assert(false, "Unexpected element of kind")
+        }
     }
 }
 
@@ -101,8 +111,12 @@ extension ContactsViewController: UICollectionViewDelegateFlowLayout {
         return CustomCollectionViewCell.cellSize
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.width, height: 40)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       onDidSelectContact?(contactsArray[indexPath.row])
+       onDidSelectContact?(contactsViewModel.contact(at: indexPath))
     }
 }
 
