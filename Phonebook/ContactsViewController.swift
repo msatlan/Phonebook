@@ -12,13 +12,26 @@ class ContactsViewController: UIViewController {
 // MARK: - Properties
     let searchBar = UISearchBar()
     let collectionView = CollectionView()
-    var onDidSelectContact: ((Contact) -> ())?
     
-    private var contactsViewModel: ContactsViewModel!
+    var onDidSelectContact: ((Contact) -> ())?
+    var onDidSelectAddContact: (() ->())?
+    
+    let viewModel: ContactsViewModel
     
 // MARK: - Constants
     let cellIdentifier = "Cell"
     let headerViewIdentifier = "Header View"
+
+// MARK: - Init
+    init(viewModel: ContactsViewModel) {
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
 // MARK : - View life cycle
     override func viewDidLoad() {
@@ -26,8 +39,6 @@ class ContactsViewController: UIViewController {
      
         navigationItem.title = "Contacts"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-     
-        contactsViewModel = ContactsViewModel()
         
         configureUI()
         setConstraints()
@@ -66,23 +77,24 @@ class ContactsViewController: UIViewController {
 // MARK: - Action methods
     @objc func addTapped() {
         print("add")
+        onDidSelectAddContact?()
     }
 }
 
 extension ContactsViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return contactsViewModel.sectionsArray.count
+        return viewModel.sectionsArray.count
     }
  
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return contactsViewModel.sectionsArray[section].contactsArray.count
+        return viewModel.sectionsArray[section].contactsArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! CustomCollectionViewCell
         
-        let contact = contactsViewModel.contact(at: indexPath)
+        let contact = viewModel.contact(at: indexPath)
         
         cell.topLabel.text = contact.firstName
         cell.bottomLabel.text = contact.lastName
@@ -95,7 +107,7 @@ extension ContactsViewController: UICollectionViewDataSource {
         case UICollectionElementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerViewIdentifier, for: indexPath) as! CollectionReusableView
             
-            let sectionName = contactsViewModel.sectionNames[indexPath.section].uppercased()
+            let sectionName = viewModel.sectionNames[indexPath.section].uppercased()
             
             headerView.label.text = sectionName
             
@@ -116,7 +128,7 @@ extension ContactsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       onDidSelectContact?(contactsViewModel.contact(at: indexPath))
+       onDidSelectContact?(viewModel.contact(at: indexPath))
     }
 }
 

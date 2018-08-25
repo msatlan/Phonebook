@@ -12,7 +12,8 @@ class ContactDetailsViewController: UIViewController {
 
 // MARK: - Properties
     var contact: Contact?
-    
+
+// MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,6 +21,8 @@ class ContactDetailsViewController: UIViewController {
         
         print(contact?.firstName)
     }
+    
+    
 
 
 }

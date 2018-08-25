@@ -10,10 +10,11 @@ import UIKit
 
 class ContactsViewModel {
 // MARK: - Properties
-    //static var contact: Contact?
     var contactsArray: [Contact] = []
     var sectionsArray: [Section] = []
     var sectionNames: [String] = []
+    
+    
     
 // MARK: - Init
     init() {

@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E0D9C4521257C2200031531 /* NewContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D9C4421257C2200031531 /* NewContactViewController.swift */; };
 		2E56143D211D86E3002EAA36 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E56143C211D86E3002EAA36 /* ContactDetailsViewController.swift */; };
 		2E56143F211D8A0D002EAA36 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E56143E211D8A0D002EAA36 /* NavigationCoordinator.swift */; };
 		2E56144121201F7D002EAA36 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E56144021201F7D002EAA36 /* ContactsViewModel.swift */; };
 		2E56144321216B93002EAA36 /* CollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E56144221216B93002EAA36 /* CollectionReusableView.swift */; };
 		2E5614462121744F002EAA36 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5614452121744F002EAA36 /* Section.swift */; };
+		2EB48EA0212B3512001FA85B /* PhoneNumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB48E9F212B3512001FA85B /* PhoneNumberCell.swift */; };
+		2EB48EA2212BE8CD001FA85B /* AddNumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB48EA1212BE8CD001FA85B /* AddNumberCell.swift */; };
 		2EE9A4722119EFE30066E0D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9A4712119EFE30066E0D1 /* AppDelegate.swift */; };
 		2EE9A4742119EFE30066E0D1 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9A4732119EFE30066E0D1 /* ContactsViewController.swift */; };
 		2EE9A4792119EFE50066E0D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EE9A4782119EFE50066E0D1 /* Assets.xcassets */; };
@@ -23,11 +26,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E0D9C4421257C2200031531 /* NewContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContactViewController.swift; sourceTree = "<group>"; };
 		2E56143C211D86E3002EAA36 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
 		2E56143E211D8A0D002EAA36 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
 		2E56144021201F7D002EAA36 /* ContactsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewModel.swift; sourceTree = "<group>"; };
 		2E56144221216B93002EAA36 /* CollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReusableView.swift; sourceTree = "<group>"; };
 		2E5614452121744F002EAA36 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		2EB48E9F212B3512001FA85B /* PhoneNumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberCell.swift; sourceTree = "<group>"; };
+		2EB48EA1212BE8CD001FA85B /* AddNumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNumberCell.swift; sourceTree = "<group>"; };
 		2EE9A46E2119EFE30066E0D1 /* Phonebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Phonebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EE9A4712119EFE30066E0D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2EE9A4732119EFE30066E0D1 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
@@ -51,13 +57,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2E5614442121740E002EAA36 /* ContactsViewModel */ = {
+		2E17AA0E2127C638009E2AF5 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
+			sourceTree = "<group>";
+		};
+		2E63E8C321257B4200052B50 /* ContactsViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				2E56144021201F7D002EAA36 /* ContactsViewModel.swift */,
 				2E5614452121744F002EAA36 /* Section.swift */,
 			);
 			name = ContactsViewModel;
+			sourceTree = "<group>";
+		};
+		2EBCCA7121257BB70051E07E /* NewContactScreen */ = {
+			isa = PBXGroup;
+			children = (
+				2E0D9C4421257C2200031531 /* NewContactViewController.swift */,
+				2EB48EA1212BE8CD001FA85B /* AddNumberCell.swift */,
+				2EB48E9F212B3512001FA85B /* PhoneNumberCell.swift */,
+			);
+			name = NewContactScreen;
 			sourceTree = "<group>";
 		};
 		2EE9A4652119EFE30066E0D1 = {
@@ -79,10 +102,12 @@
 		2EE9A4702119EFE30066E0D1 /* Phonebook */ = {
 			isa = PBXGroup;
 			children = (
+				2E17AA0E2127C638009E2AF5 /* New Group */,
 				2EE9A4712119EFE30066E0D1 /* AppDelegate.swift */,
 				2EE9A48B211C35070066E0D1 /* Common */,
-				2EE9A48F211D86550066E0D1 /* ContactDetailsScreen */,
 				2EE9A485211B41E20066E0D1 /* ContactsScreen */,
+				2EE9A48F211D86550066E0D1 /* ContactDetailsScreen */,
+				2EBCCA7121257BB70051E07E /* NewContactScreen */,
 				2EE9A4782119EFE50066E0D1 /* Assets.xcassets */,
 				2EE9A47A2119EFE50066E0D1 /* LaunchScreen.storyboard */,
 				2EE9A47D2119EFE50066E0D1 /* Info.plist */,
@@ -98,7 +123,6 @@
 				2EE9A483211B034E0066E0D1 /* CustomCollectionViewCell.swift */,
 				2EE9A487211B427C0066E0D1 /* CollectionViewFlowLayout.swift */,
 				2E56144221216B93002EAA36 /* CollectionReusableView.swift */,
-				2E5614442121740E002EAA36 /* ContactsViewModel */,
 			);
 			name = ContactsScreen;
 			sourceTree = "<group>";
@@ -106,6 +130,7 @@
 		2EE9A48B211C35070066E0D1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				2E63E8C321257B4200052B50 /* ContactsViewModel */,
 				2EE9A48C211C351A0066E0D1 /* Contact.swift */,
 				2E56143E211D8A0D002EAA36 /* NavigationCoordinator.swift */,
 			);
@@ -194,12 +219,15 @@
 				2E56143D211D86E3002EAA36 /* ContactDetailsViewController.swift in Sources */,
 				2E56143F211D8A0D002EAA36 /* NavigationCoordinator.swift in Sources */,
 				2E56144321216B93002EAA36 /* CollectionReusableView.swift in Sources */,
+				2EB48EA0212B3512001FA85B /* PhoneNumberCell.swift in Sources */,
 				2E5614462121744F002EAA36 /* Section.swift in Sources */,
 				2EE9A4742119EFE30066E0D1 /* ContactsViewController.swift in Sources */,
 				2EE9A48A211C305F0066E0D1 /* CollectionView.swift in Sources */,
+				2EB48EA2212BE8CD001FA85B /* AddNumberCell.swift in Sources */,
 				2EE9A484211B034E0066E0D1 /* CustomCollectionViewCell.swift in Sources */,
 				2EE9A488211B427C0066E0D1 /* CollectionViewFlowLayout.swift in Sources */,
 				2E56144121201F7D002EAA36 /* ContactsViewModel.swift in Sources */,
+				2E0D9C4521257C2200031531 /* NewContactViewController.swift in Sources */,
 				2EE9A4722119EFE30066E0D1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
