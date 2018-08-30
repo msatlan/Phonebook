@@ -6,8 +6,6 @@
 //  Copyright © 2018 MArko Satlan. All rights reserved.
 //
 
-import Foundation
-
 class Section {
 // MARK: - Properties
     var name: String

@@ -13,8 +13,10 @@
 		2E56144121201F7D002EAA36 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E56144021201F7D002EAA36 /* ContactsViewModel.swift */; };
 		2E56144321216B93002EAA36 /* CollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E56144221216B93002EAA36 /* CollectionReusableView.swift */; };
 		2E5614462121744F002EAA36 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5614452121744F002EAA36 /* Section.swift */; };
-		2EB48EA0212B3512001FA85B /* PhoneNumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB48E9F212B3512001FA85B /* PhoneNumberCell.swift */; };
-		2EB48EA2212BE8CD001FA85B /* AddNumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB48EA1212BE8CD001FA85B /* AddNumberCell.swift */; };
+		2EB48EA0212B3512001FA85B /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB48E9F212B3512001FA85B /* CustomTableViewCell.swift */; };
+		2EB48EA421347BB1001FA85B /* TableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB48EA321347BB1001FA85B /* TableViewSection.swift */; };
+		2EB48EA621347DA1001FA85B /* TableViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB48EA521347DA1001FA85B /* TableViewViewModel.swift */; };
+		2EB48EA821351FDC001FA85B /* TableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB48EA721351FDC001FA85B /* TableViewRow.swift */; };
 		2EE9A4722119EFE30066E0D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9A4712119EFE30066E0D1 /* AppDelegate.swift */; };
 		2EE9A4742119EFE30066E0D1 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9A4732119EFE30066E0D1 /* ContactsViewController.swift */; };
 		2EE9A4792119EFE50066E0D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EE9A4782119EFE50066E0D1 /* Assets.xcassets */; };
@@ -23,6 +25,8 @@
 		2EE9A488211B427C0066E0D1 /* CollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9A487211B427C0066E0D1 /* CollectionViewFlowLayout.swift */; };
 		2EE9A48A211C305F0066E0D1 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9A489211C305F0066E0D1 /* CollectionView.swift */; };
 		2EE9A48D211C351A0066E0D1 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9A48C211C351A0066E0D1 /* Contact.swift */; };
+		2EF4FDED2136AADB00202D0D /* Section0TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF4FDEC2136AADB00202D0D /* Section0TableViewCell.swift */; };
+		2EF4FDEF2136BF9800202D0D /* UITextField+SetBottomBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF4FDEE2136BF9800202D0D /* UITextField+SetBottomBorder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,8 +36,10 @@
 		2E56144021201F7D002EAA36 /* ContactsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewModel.swift; sourceTree = "<group>"; };
 		2E56144221216B93002EAA36 /* CollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReusableView.swift; sourceTree = "<group>"; };
 		2E5614452121744F002EAA36 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
-		2EB48E9F212B3512001FA85B /* PhoneNumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberCell.swift; sourceTree = "<group>"; };
-		2EB48EA1212BE8CD001FA85B /* AddNumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNumberCell.swift; sourceTree = "<group>"; };
+		2EB48E9F212B3512001FA85B /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		2EB48EA321347BB1001FA85B /* TableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSection.swift; sourceTree = "<group>"; };
+		2EB48EA521347DA1001FA85B /* TableViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewViewModel.swift; sourceTree = "<group>"; };
+		2EB48EA721351FDC001FA85B /* TableViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewRow.swift; sourceTree = "<group>"; };
 		2EE9A46E2119EFE30066E0D1 /* Phonebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Phonebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EE9A4712119EFE30066E0D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2EE9A4732119EFE30066E0D1 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
@@ -44,6 +50,8 @@
 		2EE9A487211B427C0066E0D1 /* CollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		2EE9A489211C305F0066E0D1 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		2EE9A48C211C351A0066E0D1 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		2EF4FDEC2136AADB00202D0D /* Section0TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section0TableViewCell.swift; sourceTree = "<group>"; };
+		2EF4FDEE2136BF9800202D0D /* UITextField+SetBottomBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+SetBottomBorder.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,8 +85,11 @@
 			isa = PBXGroup;
 			children = (
 				2E0D9C4421257C2200031531 /* NewContactViewController.swift */,
-				2EB48EA1212BE8CD001FA85B /* AddNumberCell.swift */,
-				2EB48E9F212B3512001FA85B /* PhoneNumberCell.swift */,
+				2EB48EA521347DA1001FA85B /* TableViewViewModel.swift */,
+				2EB48EA321347BB1001FA85B /* TableViewSection.swift */,
+				2EB48EA721351FDC001FA85B /* TableViewRow.swift */,
+				2EB48E9F212B3512001FA85B /* CustomTableViewCell.swift */,
+				2EF4FDEC2136AADB00202D0D /* Section0TableViewCell.swift */,
 			);
 			name = NewContactScreen;
 			sourceTree = "<group>";
@@ -133,6 +144,7 @@
 				2E63E8C321257B4200052B50 /* ContactsViewModel */,
 				2EE9A48C211C351A0066E0D1 /* Contact.swift */,
 				2E56143E211D8A0D002EAA36 /* NavigationCoordinator.swift */,
+				2EF4FDEE2136BF9800202D0D /* UITextField+SetBottomBorder.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -218,17 +230,21 @@
 				2EE9A48D211C351A0066E0D1 /* Contact.swift in Sources */,
 				2E56143D211D86E3002EAA36 /* ContactDetailsViewController.swift in Sources */,
 				2E56143F211D8A0D002EAA36 /* NavigationCoordinator.swift in Sources */,
+				2EB48EA421347BB1001FA85B /* TableViewSection.swift in Sources */,
 				2E56144321216B93002EAA36 /* CollectionReusableView.swift in Sources */,
-				2EB48EA0212B3512001FA85B /* PhoneNumberCell.swift in Sources */,
+				2EB48EA0212B3512001FA85B /* CustomTableViewCell.swift in Sources */,
 				2E5614462121744F002EAA36 /* Section.swift in Sources */,
 				2EE9A4742119EFE30066E0D1 /* ContactsViewController.swift in Sources */,
 				2EE9A48A211C305F0066E0D1 /* CollectionView.swift in Sources */,
-				2EB48EA2212BE8CD001FA85B /* AddNumberCell.swift in Sources */,
 				2EE9A484211B034E0066E0D1 /* CustomCollectionViewCell.swift in Sources */,
 				2EE9A488211B427C0066E0D1 /* CollectionViewFlowLayout.swift in Sources */,
+				2EF4FDEF2136BF9800202D0D /* UITextField+SetBottomBorder.swift in Sources */,
+				2EB48EA821351FDC001FA85B /* TableViewRow.swift in Sources */,
 				2E56144121201F7D002EAA36 /* ContactsViewModel.swift in Sources */,
 				2E0D9C4521257C2200031531 /* NewContactViewController.swift in Sources */,
+				2EB48EA621347DA1001FA85B /* TableViewViewModel.swift in Sources */,
 				2EE9A4722119EFE30066E0D1 /* AppDelegate.swift in Sources */,
+				2EF4FDED2136AADB00202D0D /* Section0TableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

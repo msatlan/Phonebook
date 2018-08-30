@@ -42,7 +42,7 @@ class NavigationCoordinator {
     }
     
     private func showNewContactViewController() {
-        let newContactViewController = NewContactViewController()
+        let newContactViewController = NewContactViewController(viewModel: TableViewViewModel())
         let navigationController = UINavigationController(rootViewController: newContactViewController)
         self.navigationController.present(navigationController, animated: true, completion: nil)
         

@@ -14,8 +14,6 @@ class ContactsViewModel {
     var sectionsArray: [Section] = []
     var sectionNames: [String] = []
     
-    
-    
 // MARK: - Init
     init() {
         let c1 = Contact()

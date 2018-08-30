@@ -10,25 +10,39 @@ import UIKit
 
 class NewContactViewController: UIViewController {
 // MARK: - Properties
+    let viewModel: TableViewViewModel
+    
     var onDidSelectCancel: (() -> ())?
     private let tableView = UITableView(frame: CGRect.zero)
-    private var cellText: [String] = ["Mobile:", "Home:", "Work:", "Private:"]
-    private var rowArray: [Int] = []
     private var activeTextField: UITextField?
+    private var userDidEnterData = false
+    private var keyboardIsActive = false
+
+//MARK: - Init
+    init(viewModel: TableViewViewModel ) {
+        print("init")
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
 // MARK: - Constants
     private let cellIdentifier = "Cell"
-    private let phoneNumberCell = "PhoneNumberCell"
-    private let addNumberCell = "AddNumberCell"
+    private let customCell = "CustomCell"
+    private let section0Cell = "Section0Cell"
 
 // MARK: - Methods
     // View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationItem.title = "New Contact"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
+        navigationItem.rightBarButtonItem?.isEnabled = false
         
         view.backgroundColor = UIColor.white
         
@@ -51,8 +65,10 @@ class NewContactViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-        tableView.register(PhoneNumberCell.self, forCellReuseIdentifier: phoneNumberCell)
-        tableView.register(AddNumberCell.self, forCellReuseIdentifier: addNumberCell)
+        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: customCell)
+        tableView.register(Section0TableViewCell.self, forCellReuseIdentifier: section0Cell)
+        tableView.setEditing(true, animated: true)
+        tableView.allowsSelectionDuringEditing = true
         view.addSubview(tableView)
         
         // Set constraints
@@ -70,91 +86,152 @@ class NewContactViewController: UIViewController {
     }
     
     @objc private func doneTapped() {
-        print("done")
+        activeTextField!.resignFirstResponder()
+        activeTextField = nil
     }
 
     // Keyboard observer
     @objc func keyboardDidShow(notification: NSNotification) {
-        print("key did show")
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
            let activeField = activeTextField {
+            let visibleRect = CGRect(x: 0,
+                                     y: 0,
+                                     width: view.frame.width,
+                                     height: view.frame.height - keyboardSize.height)
+            
+            // visible += tableview section headers? safe area?
+            
+            if visibleRect.contains(activeField.frame.origin) {
+                //print(visibleRect.height, activeField.superview!.superview!.frame.origin)
+            } else {
                 tableView.setContentOffset(CGPoint(x: 0, y: activeField.superview!.superview!.frame.origin.y - keyboardSize.height - 22), animated: true)
             }
         }
+    }
     
     @objc func keyboardWillHide(notification: NSNotification) {
         print("key will hide")
+        tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        keyboardIsActive = false
     }
-    /*
-    func nextItem(tableView: UITableView) -> String {
-        currentIndex += 1
-        let items: [String] = ["Mobile:", "Home:", "Private:", "Work:"]
 
-        //tableView.reloadData()
-        return items[currentIndex]
-    }*/
+    // Handle Done button
+    private func toggleDoneButton() {
+        print(userDidEnterData)
+        if userDidEnterData {
+            navigationItem.rightBarButtonItem?.isEnabled = true
+        } else {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        }
+    }
 }
 
 extension NewContactViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return viewModel.sectionsArray.count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 22
+        return viewModel.sectionHeaderHeight()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0: return "User Info"
-        case 1: return "Address"
-        case 2: return "Phone Number"
-        case 3: return ""
-        default:
-            return ""
-        }
+        return viewModel.sectionHeaderTitle(for: section)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0: return 3
-        case 1: return 5
-        case 2: return rowArray.count
-        case 3: return 1
-        default:
-            return 0
-        }
+        return viewModel.numberOfRows(in: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 3 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: addNumberCell, for: indexPath) as! AddNumberCell
+        switch indexPath.section {
+        case 4:
+            let cell = tableView.dequeueReusableCell(withIdentifier: customCell, for: indexPath) as! CustomTableViewCell
+            cell.label.text = "Add Number"
+            cell.verticalSeparator.removeFromSuperview()
+            cell.textField.removeFromSuperview()
             return cell
-        } else if indexPath.section == 2 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: phoneNumberCell, for: indexPath) as! PhoneNumberCell
-            let text = cellText[indexPath.row]
-            cell.label.text = text
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: customCell, for: indexPath) as! CustomTableViewCell
+            cell.label.text = viewModel.textForRow(at: indexPath)
             cell.selectionStyle = .none
             cell.textField.delegate = self
             return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-            cell.textLabel?.text = "cell"
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: customCell, for: indexPath) as! CustomTableViewCell
+            cell.label.text = "Add Address"
+            cell.verticalSeparator.removeFromSuperview()
+            cell.textField.removeFromSuperview()
             return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: customCell, for: indexPath) as! CustomTableViewCell
+            cell.label.text = viewModel.textForRow(at: indexPath)
+            cell.selectionStyle = .none
+            cell.textField.delegate = self
+            return cell
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: section0Cell, for: indexPath) as! Section0TableViewCell
+            return cell
+            /*
+            if indexPath.row == 0 {
+                cell.label.text = viewModel.textForRow(at: indexPath)
+                cell.selectionStyle = .none
+                cell.textField.delegate = self
+                cell.textField.keyboardType = .default
+                activeTextField = cell.textField
+                activeTextField?.becomeFirstResponder()
+                NSLayoutConstraint.activate([cell.label.leftAnchor.constraint(equalTo: cell.leftAnchor, constant: 15)])
+                
+                return cell
+            } else {
+                cell.label.text = viewModel.textForRow(at: indexPath)
+                cell.selectionStyle = .none
+                cell.textField.delegate = self
+                cell.textField.keyboardType = .default
+                NSLayoutConstraint.activate([cell.label.leftAnchor.constraint(equalTo: cell.leftAnchor, constant: 15)])
+                return cell
+            }*/
+        default: break
+        }
+        return UITableViewCell()
+    }
+
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return viewModel.editingStyleForSection(indexPath)
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 132
+        } else {
+            return UITableViewAutomaticDimension
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            viewModel.deleteRows(tableView, at: indexPath)
+        } else if editingStyle == .insert {
+            viewModel.insertRows(tableView, at: indexPath)
         }
     }
 }
 
 extension NewContactViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 3 {
-            if rowArray.count <= 3 {
-            rowArray.append(1)
-            tableView.insertRows(at: [IndexPath(row: rowArray.count - 1, section: 2)], with: .fade)
-            } else {
-            print("ne moze vise")
-            }
-        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 2 || indexPath.section == 4 {
+            viewModel.insertRows(tableView, at: indexPath)
+            tableView.deselectRow(at: indexPath, animated: true)
+        } else {
+            print(indexPath.row)
+        }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if let activeField = activeTextField {
+            activeField.resignFirstResponder()
         }
     }
 }
@@ -162,12 +239,32 @@ extension NewContactViewController: UITableViewDelegate {
 extension NewContactViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField
+        activeTextField?.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
     }
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         activeTextField = nil
         return true
     }
+    
+    @objc func textDidChange(textField: UITextField) {
+        if let text = textField.text, !text.isEmpty {
+            userDidEnterData = true
+            toggleDoneButton()
+        } else {
+            userDidEnterData = false
+            toggleDoneButton()
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
 

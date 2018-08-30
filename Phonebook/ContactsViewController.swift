@@ -76,7 +76,6 @@ class ContactsViewController: UIViewController {
     
 // MARK: - Action methods
     @objc func addTapped() {
-        print("add")
         onDidSelectAddContact?()
     }
 }

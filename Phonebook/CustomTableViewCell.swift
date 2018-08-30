@@ -8,10 +8,9 @@
 
 import UIKit
 
-class PhoneNumberCell: UITableViewCell {
+class CustomTableViewCell: UITableViewCell {
 
 // MARK: - Properties
-    let button = UIButton()
     let label = UILabel()
     let textField = UITextField()
     let verticalSeparator = UIView()
@@ -22,58 +21,31 @@ class PhoneNumberCell: UITableViewCell {
         
         configureUI()
         setConstraints()
-        print("cellov init")
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    
-    // Configure background color of button when cell is selected 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        button.backgroundColor = UIColor.red
-    }
-    
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        super.setHighlighted(highlighted, animated: animated)
-        button.backgroundColor = UIColor.red
-    }
-
 // MARK: - Configure UI / set constraints
-    func configureUI() {
-        button.layer.cornerRadius = 15
-        button.backgroundColor = UIColor.red
-        button.setTitle(" - ", for: .normal)
-        contentView.addSubview(button)
-       
+    private func configureUI() {
         contentView.addSubview(label)
         
         verticalSeparator.backgroundColor = UIColor.lightGray
         contentView.addSubview(verticalSeparator)
         
         textField.placeholder = "Phone"
-        //textField.keyboardType = .numberPad
+        textField.keyboardType = .numberPad
         textField.autocorrectionType = .no
         contentView.addSubview(textField)
-        textField.becomeFirstResponder()
+        //textField.becomeFirstResponder()
     }
     
-    func setConstraints() {
-        let topMargin: CGFloat = 7
-        let height: CGFloat = 30
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([button.topAnchor.constraint(equalTo: topAnchor, constant: topMargin),
-                                     button.leftAnchor.constraint(equalTo: leftAnchor, constant: 15),
-                                     button.widthAnchor.constraint(equalToConstant: 30),
-                                     button.heightAnchor.constraint(equalToConstant: height)])
-        
+    private func setConstraints() {
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([label.topAnchor.constraint(equalTo: topAnchor),
-                                     label.leftAnchor.constraint(equalTo: button.rightAnchor, constant: 5),
-                                     label.widthAnchor.constraint(equalToConstant: 70),
+                                     label.leftAnchor.constraint(equalTo: leftAnchor, constant: 50),
+                                     label.widthAnchor.constraint(equalToConstant: 100),
                                      label.heightAnchor.constraint(equalTo: heightAnchor)])
         
         verticalSeparator.translatesAutoresizingMaskIntoConstraints = false
