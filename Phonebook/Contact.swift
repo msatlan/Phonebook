@@ -6,10 +6,11 @@
 //  Copyright © 2018 MArko Satlan. All rights reserved.
 //
 
-import Foundation
-
 class Contact {
     var firstName = ""
     var lastName = ""
-    var imageName = ""
+    var company = ""
+    
+    
+    
 }

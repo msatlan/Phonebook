@@ -8,12 +8,16 @@
 
 import UIKit
 
+protocol CustomTableViewCellDelegate: class {
+    func buttonTapped(_ tableViewCell: CustomTableViewCell)
+}
+
 class CustomTableViewCell: UITableViewCell {
 
 // MARK: - Properties
-    let label = UILabel()
-    let textField = UITextField()
-    let verticalSeparator = UIView()
+    let button = UIButton()
+    let textField = MyTextField()
+    weak var delegate: CustomTableViewCellDelegate?
     
 // MARK: - Init
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -29,35 +33,32 @@ class CustomTableViewCell: UITableViewCell {
 
 // MARK: - Configure UI / set constraints
     private func configureUI() {
-        contentView.addSubview(label)
-        
-        verticalSeparator.backgroundColor = UIColor.lightGray
-        contentView.addSubview(verticalSeparator)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        contentView.addSubview(button)
         
         textField.placeholder = "Phone"
         textField.keyboardType = .numberPad
-        textField.autocorrectionType = .no
+        textField.addLeftVerticalSeparator()
+        textField.becomeFirstResponder()
         contentView.addSubview(textField)
-        //textField.becomeFirstResponder()
     }
     
     private func setConstraints() {
-        label.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([label.topAnchor.constraint(equalTo: topAnchor),
-                                     label.leftAnchor.constraint(equalTo: leftAnchor, constant: 50),
-                                     label.widthAnchor.constraint(equalToConstant: 100),
-                                     label.heightAnchor.constraint(equalTo: heightAnchor)])
-        
-        verticalSeparator.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([verticalSeparator.topAnchor.constraint(equalTo: topAnchor),
-                                     verticalSeparator.leftAnchor.constraint(equalTo: label.rightAnchor),
-                                     verticalSeparator.widthAnchor.constraint(equalToConstant: 1),
-                                     verticalSeparator.heightAnchor.constraint(equalTo: heightAnchor)])
- 
+        button.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([button.topAnchor.constraint(equalTo: topAnchor),
+                                     button.leftAnchor.constraint(equalTo: leftAnchor, constant: 45),
+                                     button.widthAnchor.constraint(equalToConstant: 105),
+                                     button.heightAnchor.constraint(equalTo: heightAnchor)])
+    
         textField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([textField.topAnchor.constraint(equalTo: topAnchor),
-                                     textField.leftAnchor.constraint(equalTo: verticalSeparator.rightAnchor, constant: 10),
+                                     textField.leftAnchor.constraint(equalTo: button.rightAnchor, constant: 10),
                                      textField.rightAnchor.constraint(equalTo: rightAnchor),
                                      textField.heightAnchor.constraint(equalTo: heightAnchor)])
+    }
+    
+// MARK: - Action methods
+    @objc func buttonTapped(sender: UIButton) {
+        delegate?.buttonTapped(self)
     }
 }

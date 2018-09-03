@@ -14,7 +14,7 @@ class ContactsViewController: UIViewController {
     let collectionView = CollectionView()
     
     var onDidSelectContact: ((Contact) -> ())?
-    var onDidSelectAddContact: (() ->())?
+    var onDidSelectAddContact: ((ContactsViewModel) ->())?
     
     let viewModel: ContactsViewModel
     
@@ -42,6 +42,14 @@ class ContactsViewController: UIViewController {
         
         configureUI()
         setConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print("viewWillAppear: \(viewModel.contactsArray.count)")
+        viewModel.makeSections()
+        collectionView.reloadData()
     }
     
 // MARK: - Configure UI / set constraints
@@ -76,7 +84,7 @@ class ContactsViewController: UIViewController {
     
 // MARK: - Action methods
     @objc func addTapped() {
-        onDidSelectAddContact?()
+        onDidSelectAddContact?(viewModel)
     }
 }
 

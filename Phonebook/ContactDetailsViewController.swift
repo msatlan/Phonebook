@@ -19,7 +19,7 @@ class ContactDetailsViewController: UIViewController {
 
         view.backgroundColor = UIColor.blue
         
-        print(contact?.firstName)
+       
     }
     
     

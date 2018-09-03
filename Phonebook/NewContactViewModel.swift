@@ -7,7 +7,7 @@
 //
 import UIKit
 
-class TableViewViewModel {
+class NewContactViewModel {
 // MARK: - Properties
     var sectionsArray: [TableViewSection] = []
     

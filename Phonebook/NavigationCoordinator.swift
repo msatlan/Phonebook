@@ -30,8 +30,8 @@ class NavigationCoordinator {
             self.showDetailsViewController(contact: contact)
         }
         
-        contactsViewController.onDidSelectAddContact = {
-            self.showNewContactViewController()
+        contactsViewController.onDidSelectAddContact = { contactsViewModel in
+            self.showNewContactViewController(contactsViewModel: contactsViewModel)
         }
     }
     
@@ -41,12 +41,16 @@ class NavigationCoordinator {
         self.showViewController(detailsViewController)
     }
     
-    private func showNewContactViewController() {
-        let newContactViewController = NewContactViewController(viewModel: TableViewViewModel())
+    private func showNewContactViewController(contactsViewModel: ContactsViewModel) {
+        let newContactViewController = NewContactViewController(viewModel: NewContactViewModel())
         let navigationController = UINavigationController(rootViewController: newContactViewController)
         self.navigationController.present(navigationController, animated: true, completion: nil)
         
         newContactViewController.onDidSelectCancel = {
+            self.navigationController.dismiss(animated: true, completion: nil)
+        }
+        
+        newContactViewController.onDidSelectDone = {
             self.navigationController.dismiss(animated: true, completion: nil)
         }
     }
